@@ -1,0 +1,54 @@
+{% load post_extras %}
+{% include "header.html" %}
+
+<h1 class="site-welcome"></h1>
+
+<!-- Text -->
+<section>
+	<p class="center"></p>
+</section>
+
+<!-- Text -->
+<section>
+	<div class="row">
+		<div class="col-8 col-12-medium off-2">
+
+			<article class="post">
+
+				{% if  blog_post.publish_post == True %}
+
+				{% if blog_post.featured_image|length > 0 %}
+				<div class="">
+					<img src="https://remotebase.io/blog/remotely-concerned-cover.png" alt="" class="featured-image">
+				</div>
+                {% endif %}
+
+				<h2>{{blog_post.title}}</h2>
+
+				<ul>
+					<li>{{blog_post.author.email|gravatar:24}}{{blog_post.author}}
+						on
+					    {% for category in blog_post.category.all %}
+							<a href="#">#{{category}}</a>
+					    {% endfor %}
+					</li>
+					<li>{{blog_post.published_date}}</li>
+				</ul>
+
+				<p>{{blog_post.content}}</p>
+				<p>
+					{% if request.user.is_authenticated %}
+					<a href="/admin/posts/post/{{blog_post.id}}/change/"> Edit</a>
+					{% endif %}
+				</p>
+				{% else %}
+				<p>Post not found</p>
+				{% endif %}
+
+
+			</article>
+
+		</div>
+	</div>
+</section>
+{% include "footer.html" %}

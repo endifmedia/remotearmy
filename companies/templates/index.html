@@ -1,0 +1,58 @@
+{% include "header.html" %}
+<h1 class="site-welcome">Find remote friendly companies</h1>
+
+<!-- Text -->
+<section>
+    <p class="center">Ditch the office. Forget the mediocre coffee. Drop the commute.</p>
+    <hr />
+</section>
+
+<!-- Table -->
+<section class="companies">
+<h3>{{company_count}} companies found</h3>
+<div class="table-wrapper">
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Team Size</th>
+				<th>Remoteness</th>
+			</tr>
+		</thead>
+		<tbody>
+		
+			{% for company_list in company_list %}
+
+	        <a>
+	        	<td>
+			    <a href="company/{{company_list.id}}">
+                {% if company_list.logo|length > 0 %}
+	            <div class="company-logo-container">
+				    <img src="{{company_list.logo.url}}" alt="{{company_list.company_name}}" class="company-logo">
+			    </div>
+		        {% endif %}
+		        <div class="company-meta-container">
+				    <p class="company-name">{{company_list.company_name}}</p>
+					<i class="fa fa-check-circle official-icon"></i>
+					<p class="company-short-description">{{company_list.short_description}}</p>
+				</div>
+			    </td>
+			    <td><span class="company-size">{{company_list.number_of_employees}}</span></td>
+				<td><span class="company-remoteness">{{company_list.remoteness}}</span></td>
+			    </a>
+	        </tr>
+
+	        {% endfor %}
+			
+		</tbody>
+	</table>
+</div>
+
+</section>
+{% if company_list.has_next %}
+<a href="?page={{company_list.next_page_number}}" class="button primary fit small">Load More</a>
+{% endif %}
+{% if company_list.has_previous %}
+<a href="?page={{company_list.previous_page_number}}" class="button primary fit small">Previous</a>
+{% endif %}
+{% include "footer.html" %}					

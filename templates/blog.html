@@ -1,0 +1,46 @@
+{% load post_extras %}
+{% include "header.html" %}
+
+<h1 class="site-welcome">Blog</h1>
+
+<!-- Text -->
+<section>
+	<p class="center"></p>
+</section>
+
+<!-- Text -->
+<section>
+	<div class="row">
+		<div class="col-8 col-12-medium off-2">
+
+			{% for post_list in post_list %}
+
+			{% if post_list.publish_post == True %}
+			<article class="post">
+
+			    {% if post_list.featured_image|length > 0 %}
+				<div class="">
+					<img src="https://remotebase.io/blog/remotely-concerned-cover.png" alt="" class="featured-image">
+				</div>
+                {% endif %}
+				<h2><a href="{{post_list.id}}">{{post_list.title}}</a></h2>
+				<p>{{post_list.content}}</p>
+				<ul>
+					<li>{{post_list.author.email|gravatar:24}}{{post_list.author}} on
+					    {% for category in post_list.category.all %}
+							<a href="#">#{{ category }}</a>
+					    {% endfor %}
+					</li>
+					<li>{{post_list.published_date}}</li>
+				</ul>
+				<hr>
+			</article>
+			{% endif %}
+
+			{% endfor %}
+
+
+		</div>
+	</div>
+</section>
+{% include "footer.html" %}

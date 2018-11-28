@@ -1,0 +1,72 @@
+{% include "header.html" %}
+<section class="center single-company">
+
+	{% if company.logo|length > 0%}
+	<div class="logo-container"><img src="{{company.logo.url}}"></div>
+	{% endif %}
+
+	<h2>{{company.company_name}}</h2>
+
+	<p>{{company.short_description}}</p>
+	<ul class="icons">
+		{% if company.website|length > 0 %}
+		<li><a href="{{company.website}}" class="icon fa-globe" target="_blank"></i>
+			<span class="label">Website</span></a></li>
+		{% endif %}
+
+		{% if company.twitter|length > 0 %}
+		<li><a href="{{company.twitter}}" class="icon fa-twitter" target="_blank">
+			<span class="label">Twitter</span></a></li>
+		{% endif %}
+
+		{% if company.facebook|length > 0 %}
+		<li><a href="{{company.facebook}}" class="icon fa-facebook" target="_blank">
+			<span class="label">Facebook</span></a></li>
+		{% endif %}
+
+		{% if company.github|length > 0 %}
+		<li><a href="{{company.github}}" class="icon fa-github" target="_blank">
+			<span class="label">GitHub</span></a></li>
+		{% endif %}
+
+		{% if company.linkedin|length > 0 %}
+		<li><a href="{{company.linkedin}}" class="icon fa-linkedin-square" target="_blank">
+			<span class="label">LinkedIn</span></a></li>
+		{% endif %}
+	</ul>
+
+	<div class="row" style="text-align:left">
+		<div class="col-8 col-12-medium off-2">
+			<p>{{company.long_description}}</p>
+		</div>
+	</div>
+
+	<div class="row" style="text-align:left;">
+		<div class="col-5 col-12-medium off-2">
+			<ul>
+				<li class="remote-question{% if company.question_1 == True %} passed {% endif %} "><i class="fa fa-check-circle official-icon"></i><i class="fa fa-close"></i> Is the team fully remote?</li>
+				<li class="remote-question{% if company.question_2 == True %} passed {% endif %} "><i class="fa fa-check-circle official-icon"></i><i class="fa fa-close"></i> Does the team get together or have a retreat?</li>
+				<li class="remote-question{% if company.question_3 == True %} passed {% endif %} "><i class="fa fa-check-circle official-icon"></i><i class="fa fa-close"></i> Can you work in your timezone?</li>
+			</ul>
+		</div>
+		<div class="col-3 col-12-medium">
+			<ul>
+				<li><i class="fa fa-users" aria-hidden="true" title="Number of Employees"></i> {{company.number_of_employees}}</li>
+				{% if company.year_founded|length > 0 %}
+				<li><i class="fa fa-flag" aria-hidden="true" title="Year Founded"></i> Founded {{company.year_founded}}</li>
+				{% endif %}
+				<li><i class="fa fa-building" aria-hidden="true" title="Remoteness"></i> {{company.remoteness}}</li>
+			    {% if company.headquarters|length > 0 %}
+				<li><i class="fa fa-map-pin" aria-hidden="true" title="Headquarters"></i> {{company.headquarters}}</li>
+				{% endif %}
+				{% if company.industry|length > 0 %}
+				<li><i class="fa fa-industry" aria-hidden="true" title="Industry"></i> {{company.industry}}</li>
+			    {% endif %}
+			</ul>
+		</div>
+	</div>
+</section>
+{% if request.user.is_authenticated %}
+<a href="/admin/companies/company/{{company.id}}/change/"> Edit</a>
+{% endif %}
+{% include "footer.html" %}
